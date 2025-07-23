@@ -1,4 +1,9 @@
 <script setup lang="ts">
+  interface Emits {
+    (e: 'proceed'): void
+  }
+
+  const emit = defineEmits<Emits>()
 
 </script>
 
@@ -13,14 +18,13 @@
         </a>
       </div>
 
-
-      <h1>Welcome to <span class="highlight-text">NubiWeather</span> </h1>
+      <h1>Welcome to <span class="highlighted-text">NubiWeather</span> </h1>
     </div>
-
 
     <v-btn
       size="large"
       variant="outlined"
+      @click="emit('proceed')"
     >
       Explore the weather
     </v-btn>
@@ -28,7 +32,7 @@
 </template>
 
 <style scoped lang="scss">
-.highlight-text {
+.highlighted-text {
   font-weight: 600;
   background: linear-gradient(
       to right,
