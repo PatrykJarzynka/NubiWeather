@@ -1,5 +1,6 @@
 import { CurrentWeatherResponse } from '@/interfaces/CurrentWeatherResponse.ts';
 import { ConditionData } from '@/interfaces/ConditionData.ts';
+import { WeatherData } from '@/interfaces/WeatherData.ts';
 
 interface WeatherDataByDay {
   maxtemp_c: number,
@@ -45,7 +46,7 @@ interface WeatherDataByHour extends WeatherData {
   chance_of_snow: number;
 }
 
-interface ForecastDay {
+export interface ForecastDay {
   date: string,
   date_epoch: number,
   day: WeatherDataByDay,

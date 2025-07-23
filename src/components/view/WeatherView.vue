@@ -9,7 +9,10 @@
 
 <template>
   <v-container>
-    <v-row class="w-100 h-100">
+    <v-row
+      no-gutters
+      class="w-100 h-100"
+    >
       <v-col
         cols="12"
         xl="6"

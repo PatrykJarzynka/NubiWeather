@@ -1,16 +1,19 @@
 <script setup lang="ts">
-  import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
-  import moment from 'moment/moment';
+import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
+import ForecastCard from './ForecastCard.vue';
+import { ref } from 'vue';
+import { TempType } from '@/enums/TempType.ts';
+import useDateFormatter from '@/composables/useDateFormatter.ts';
 
   interface Props {
     forecastData: ForecastWeatherResponse
   }
 
+  const { formatToWeekdayTime } = useDateFormatter()
+
   defineProps<Props>();
 
-  function convertDate(date: string): string {
-    return moment(date).format('dddd, HH:mm');
-  }
+  const selectedTempType = ref<TempType>(TempType.Celsius)
 </script>
 
 <template>
@@ -18,7 +21,7 @@
     <div class="title-container">
       <v-card-title class="location">{{forecastData.location.name}}, {{forecastData.location.country}}</v-card-title>
 
-      <v-card-subtitle class="date">{{convertDate(forecastData.location.localtime)}}</v-card-subtitle>
+      <v-card-subtitle class="date">{{formatToWeekdayTime(forecastData.location.localtime)}}</v-card-subtitle>
     </div>
 
     <v-card-text class="d-flex flex-column justify-center ga-10">
@@ -41,6 +44,7 @@
 
           <div class="d-flex flex-column">
             <v-btn
+              @click="() => selectedTempType = TempType.Celsius"
               height="50%"
               icon="mdi-temperature-celsius"
               class="temperature-type-button"
@@ -49,7 +53,7 @@
             />
 
             <v-btn
-              disabled
+              @click="() => selectedTempType = TempType.Fahrenheit"
               height="50%"
               icon="mdi-temperature-fahrenheit"
               class="temperature-type-button"
@@ -57,11 +61,22 @@
               :ripple="false"
             />
           </div>
-
         </v-col>
       </v-row>
 
       <v-divider style="opacity: 1"/>
+
+      <v-row>
+        <v-col
+          cols="4"
+          v-for="forecastItem in forecastData.forecast.forecastday"
+        >
+          <ForecastCard
+            :forecastData="forecastItem"
+            :tempType="selectedTempType"
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>

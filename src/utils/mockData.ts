@@ -1,4 +1,4 @@
-import { CurrentWeatherResponse } from '@/interfaces/WeatherResponse.ts';
+import { CurrentWeatherResponse } from '@/interfaces/CurrentWeatherResponse.ts';
 import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
 
 
