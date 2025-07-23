@@ -4,7 +4,7 @@
   >
     <div>
       <a href="https://nubisoft.io/" target="_blank">
-        <img src="assets/nubisoft.svg" className="" alt="Nubisoft logo" />
+        <img src="./assets/nubisoft.svg" className="" alt="Nubisoft logo" />
       </a>
     </div>
     <h1>NubiWeather</h1>
