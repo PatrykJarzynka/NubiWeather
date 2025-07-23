@@ -1,10 +1,10 @@
 <template>
   <div
-    className="flex justify-center flex-col gap-4 items-center"
+    class="flex justify-center flex-col gap-4 items-center"
   >
     <div>
       <a href="https://nubisoft.io/" target="_blank">
-        <img src="./assets/nubisoft.svg" className="" alt="Nubisoft logo" />
+        <img src="./assets/nubisoft.svg" class="" alt="Nubisoft logo" />
       </a>
     </div>
     <h1>NubiWeather</h1>
