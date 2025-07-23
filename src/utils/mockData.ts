@@ -2,7 +2,7 @@ import { CurrentWeatherResponse } from '@/interfaces/WeatherResponse.ts';
 import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
 
 
-const currentGliwiceData: CurrentWeatherResponse = {
+export const currentGliwiceData: CurrentWeatherResponse = {
   "location": {
     "name": "Gliwice",
     "region": "",
@@ -50,7 +50,7 @@ const currentGliwiceData: CurrentWeatherResponse = {
   }
 }
 
-const currentHamburgData: CurrentWeatherResponse = {
+export const currentHamburgData: CurrentWeatherResponse = {
   "location": {
     "name": "Hamburg",
     "region": "Hamburg",
@@ -98,7 +98,7 @@ const currentHamburgData: CurrentWeatherResponse = {
   }
 }
 
-const hamburgForecastData: ForecastWeatherResponse = {
+export const hamburgForecastData: ForecastWeatherResponse = {
   "location": {
     "name": "Hamburg",
     "region": "Hamburg",
@@ -5160,7 +5160,7 @@ const hamburgForecastData: ForecastWeatherResponse = {
   }
 }
 
-const gliwiceForecastData: ForecastWeatherResponse = {
+export const gliwiceForecastData: ForecastWeatherResponse = {
   "location": {
     "name": "Gliwice",
     "region": "",
