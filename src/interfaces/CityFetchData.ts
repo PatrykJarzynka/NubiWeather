@@ -3,7 +3,7 @@ import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts
 
 
 export interface CityFetchData {
-  id: number;
+  id: string;
   name: string;
   isLoading: Ref<boolean>;
   error: Ref<string | null>;

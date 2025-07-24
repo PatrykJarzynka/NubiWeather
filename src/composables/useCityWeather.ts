@@ -1,10 +1,10 @@
 import { ref, reactive } from 'vue';
 import { useWeatherApi } from '@/services/useWeatherApi';
 import { CityFetchData } from '@/interfaces/CityFetchData';
+import { v4 as uuidv4 } from 'uuid';
 
 export function useCityWeather() {
   const cities = ref<CityFetchData[]>([]);
-  let nextId = 1;
 
   const addCity = async (cityName: string) => {
     if (cities.value.some(city => city.name.toLowerCase() === cityName.toLowerCase())) {
@@ -15,7 +15,7 @@ export function useCityWeather() {
     const { forecast, error, isLoading, fetchForecastByCity } = useWeatherApi();
 
     const city = reactive<CityFetchData>({
-      id: nextId++,
+      id: uuidv4(),
       name: cityName,
       isLoading: isLoading,
       error: error,
