@@ -1,9 +1,14 @@
 <script setup lang="ts">
-  import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
-  import { gliwiceForecastData, hamburgForecastData } from '@/utils/mockData.ts';
   import WeatherCard from '@/components/common/WeatherCard.vue'
+  import { onMounted } from 'vue';
+  import { useCityWeather } from '@/composables/useCityWeather.ts';
 
-  const weatherData: ForecastWeatherResponse[] = [gliwiceForecastData, hamburgForecastData];
+  const initialCityNames = ['Gliwice', 'Hamburg'];
+  const { addCity, cities } = useCityWeather();
+
+  onMounted(async () => {
+    initialCityNames.map(name => addCity(name));
+  })
 
 </script>
 
@@ -14,12 +19,14 @@
       class="w-100 h-100 ga-10 justify-center"
     >
       <v-col
-        v-for="item in weatherData"
-        :key="item.location.localtime_epoch"
+        v-for="city in cities"
+        :key="city.id"
         cols="12"
         xl="5"
       >
-        <WeatherCard :forecast-data="item"/>
+        <WeatherCard
+          :city-data="city"
+        />
       </v-col>
     </v-row>
   </v-container>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ForecastWeatherResponse } from '@/interfaces/ForecastWeatherResponse.ts';
 import ForecastCard from './ForecastCard.vue';
-import { ref } from 'vue';
+import { Reactive, ref } from 'vue';
 import { TempType } from '@/enums/TempType.ts';
 import useDateFormatter from '@/composables/useDateFormatter.ts';
+import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 
   interface Props {
-    forecastData: ForecastWeatherResponse
+    cityData: Reactive<CityFetchData>
   }
 
   const { formatToWeekdayTime } = useDateFormatter()
@@ -18,82 +18,94 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 
 <template>
   <v-card class="weather-card-container">
-    <div class="title-container">
-      <v-card-title class="location">
-        {{forecastData.location.name}}, {{forecastData.location.country}}
-      </v-card-title>
 
-      <v-card-subtitle class="date">
-        {{formatToWeekdayTime(forecastData.location.localtime)}}
-      </v-card-subtitle>
+    <v-skeleton-loader type="card" v-if="cityData.isLoading"/>
+
+    <div v-else-if="cityData.error">
+      <v-card-title>Failed to fetch weather data</v-card-title>
+      <v-btn>Try again</v-btn>
     </div>
 
-    <v-card-text class="d-flex flex-column justify-center ga-10">
-      <v-row
-        no-gutters
-        class="card-content-container"
+    <div v-else-if="cityData.data">
+      <div
+        class="title-container"
       >
-        <v-col
-          cols="6"
-          sm="2"
-          lg="1"
-        >
-          <v-img :src="forecastData.current.condition.icon"/>
-        </v-col>
+        <v-card-title class="location">
+          {{cityData.data.location.name}}, {{cityData.data.location.country}}
+        </v-card-title>
 
-        <v-col
-          class="temperature-column"
-        >
-          <p class="temperature-number">
-            {{ selectedTempType === TempType.Celsius ? forecastData.current.temp_c.toFixed(0) : forecastData.current.temp_f.toFixed(0)}}
-          </p>
+        <v-card-subtitle class="date">
+          {{formatToWeekdayTime(cityData.data.location.localtime)}}
+        </v-card-subtitle>
+      </div>
 
-          <div class="d-flex flex-column">
-            <v-btn
-              @click="() => selectedTempType = TempType.Celsius"
-              density="compact"
-              icon="mdi-temperature-celsius"
-              :class="['temperature-type-button', selectedTempType === TempType.Celsius ? 'active' : '']"
-              variant="text"
-              :ripple="false"
+      <v-card-text class="d-flex flex-column justify-center ga-10">
+        <v-row
+          no-gutters
+          class="card-content-container"
+        >
+          <v-col
+            cols="6"
+            sm="2"
+            lg="1"
+          >
+            <v-img :src="cityData.data.current.condition.icon"/>
+          </v-col>
+
+          <v-col
+            class="temperature-column"
+          >
+            <p class="temperature-number">
+              {{ selectedTempType === TempType.Celsius ? cityData.data.current.temp_c.toFixed(0) : cityData.data.current.temp_f.toFixed(0)}}
+            </p>
+
+            <div class="d-flex flex-column">
+              <v-btn
+                @click="() => selectedTempType = TempType.Celsius"
+                density="compact"
+                icon="mdi-temperature-celsius"
+                :class="['temperature-type-button', selectedTempType === TempType.Celsius ? 'active' : '']"
+                variant="text"
+                :ripple="false"
+              />
+
+              <v-btn
+                @click="() => selectedTempType = TempType.Fahrenheit"
+                density="compact"
+                icon="mdi-temperature-fahrenheit"
+                :class="['temperature-type-button', selectedTempType === TempType.Fahrenheit ? 'active' : '']"
+                variant="text"
+                :ripple="false"
+              />
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-divider style="opacity: 1"/>
+
+        <v-row class="forecast-row">
+          <v-col
+            v-for="forecastItem in cityData.data.forecast.forecastday"
+            :key="forecastItem.date_epoch"
+            cols="4"
+            sm="3"
+            md="2"
+          >
+            <ForecastCard
+              :forecastData="forecastItem"
+              :tempType="selectedTempType"
             />
-
-            <v-btn
-              @click="() => selectedTempType = TempType.Fahrenheit"
-              density="compact"
-              icon="mdi-temperature-fahrenheit"
-              :class="['temperature-type-button', selectedTempType === TempType.Fahrenheit ? 'active' : '']"
-              variant="text"
-              :ripple="false"
-            />
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-divider style="opacity: 1"/>
-
-      <v-row class="forecast-row">
-        <v-col
-          v-for="forecastItem in forecastData.forecast.forecastday"
-          :key="forecastItem.date_epoch"
-          cols="4"
-          sm="3"
-          md="2"
-        >
-          <ForecastCard
-            :forecastData="forecastItem"
-            :tempType="selectedTempType"
-          />
-        </v-col>
-      </v-row>
-    </v-card-text>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </div>
   </v-card>
 </template>
 
 <style scoped lang="scss">
 
 .weather-card-container {
-  padding-inline: 16px;
+  padding: 20px;
   border-radius: 24px;
   background-color: rgb(var(--v-theme-background));
 }
@@ -102,7 +114,7 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0;
+  padding: 0;
   column-gap: 15px;
 
   @media only screen and (width >= 600px) {
