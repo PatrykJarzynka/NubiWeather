@@ -19,9 +19,13 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 <template>
   <v-card class="weather-card-container">
     <div class="title-container">
-      <v-card-title class="location">{{forecastData.location.name}}, {{forecastData.location.country}}</v-card-title>
+      <v-card-title class="location">
+        {{forecastData.location.name}}, {{forecastData.location.country}}
+      </v-card-title>
 
-      <v-card-subtitle class="date">{{formatToWeekdayTime(forecastData.location.localtime)}}</v-card-subtitle>
+      <v-card-subtitle class="date">
+        {{formatToWeekdayTime(forecastData.location.localtime)}}
+      </v-card-subtitle>
     </div>
 
     <v-card-text class="d-flex flex-column justify-center ga-10">
@@ -40,7 +44,9 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
         <v-col
           class="temperature-column"
         >
-          <p class="temperature-number">{{forecastData.current.temp_c.toFixed(0)}}</p>
+          <p class="temperature-number">
+            {{ selectedTempType === TempType.Celsius ? forecastData.current.temp_c.toFixed(0) : forecastData.current.temp_f.toFixed(0)}}
+          </p>
 
           <div class="d-flex flex-column">
             <v-btn
@@ -69,6 +75,7 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
       <v-row class="forecast-row">
         <v-col
           v-for="forecastItem in forecastData.forecast.forecastday"
+          :key="forecastItem.date_epoch"
           cols="4"
           sm="3"
           md="2"
@@ -127,6 +134,10 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
   @media only screen and (width >= 600px) {
     justify-content: flex-start;
   }
+
+  .active {
+    color: rgb(var(--v-theme-accent));
+  }
 }
 
 .location {
@@ -179,10 +190,6 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
     font-size: 0.9rem;
     aspect-ratio: unset;
   }
-}
-
-.active {
-  color: rgb(var(--v-theme-accent));
 }
 
 .forecast-row {

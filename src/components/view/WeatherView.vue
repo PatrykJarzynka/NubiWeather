@@ -14,9 +14,10 @@
       class="w-100 h-100 ga-10 justify-center"
     >
       <v-col
+        v-for="item in weatherData"
+        :key="item.location.localtime_epoch"
         cols="12"
         xl="5"
-        v-for="item in weatherData"
       >
         <WeatherCard :forecast-data="item"/>
       </v-col>
