@@ -10,7 +10,8 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 const myTheme = {
   colors: {
-    background: '#fff',
+    accent: '#0075d1',
+    background: '#F2FAFC',
   },
 }
 

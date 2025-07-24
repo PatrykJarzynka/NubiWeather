@@ -11,7 +11,7 @@
   <v-container>
     <v-row
       no-gutters
-      class="w-100 h-100 ga-10"
+      class="w-100 h-100 ga-10 justify-center"
     >
       <v-col
         cols="12"

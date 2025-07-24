@@ -17,7 +17,7 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 </script>
 
 <template>
-  <v-card class="px-4 rounded-xl">
+  <v-card class="weather-card-container">
     <div class="title-container">
       <v-card-title class="location">{{forecastData.location.name}}, {{forecastData.location.country}}</v-card-title>
 
@@ -45,19 +45,19 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
           <div class="d-flex flex-column">
             <v-btn
               @click="() => selectedTempType = TempType.Celsius"
-              height="50%"
+              density="compact"
               icon="mdi-temperature-celsius"
-              class="temperature-type-button"
-              variant="flat"
+              :class="['temperature-type-button', selectedTempType === TempType.Celsius ? 'active' : '']"
+              variant="text"
               :ripple="false"
             />
 
             <v-btn
               @click="() => selectedTempType = TempType.Fahrenheit"
-              height="50%"
+              density="compact"
               icon="mdi-temperature-fahrenheit"
-              class="temperature-type-button"
-              variant="flat"
+              :class="['temperature-type-button', selectedTempType === TempType.Fahrenheit ? 'active' : '']"
+              variant="text"
               :ripple="false"
             />
           </div>
@@ -68,10 +68,10 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 
       <v-row class="forecast-row">
         <v-col
+          v-for="forecastItem in forecastData.forecast.forecastday"
           cols="4"
           sm="3"
           md="2"
-          v-for="forecastItem in forecastData.forecast.forecastday"
         >
           <ForecastCard
             :forecastData="forecastItem"
@@ -84,6 +84,12 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 </template>
 
 <style scoped lang="scss">
+
+.weather-card-container {
+  padding-inline: 16px;
+  border-radius: 24px;
+  background-color: rgb(var(--v-theme-background));
+}
 
 .title-container {
   display: flex;
@@ -173,10 +179,10 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
     font-size: 0.9rem;
     aspect-ratio: unset;
   }
+}
 
-  @media only screen and (width >= 960px) {
-    font-size: 0.9rem;
-  }
+.active {
+  color: rgb(var(--v-theme-accent));
 }
 
 .forecast-row {

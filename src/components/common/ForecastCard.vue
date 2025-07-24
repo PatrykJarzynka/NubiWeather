@@ -14,7 +14,10 @@
 </script>
 
 <template>
-  <v-card class="card-container">
+  <v-card
+    elevation="3"
+    class="card-container"
+  >
     <v-card-title class="title">{{formatToShortWeekdayDay(forecastData.date)}}</v-card-title>
 
     <v-img :src="forecastData.day.condition.icon"/>
@@ -38,6 +41,7 @@
   display: grid;
   grid-template-rows: 1fr auto 1fr;
   height: 100%;
+  border-radius: 12px;
 
   @media only screen and (width >= 600px) {
     grid-template-rows: 1fr 80px 1fr;
