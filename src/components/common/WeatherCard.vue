@@ -9,7 +9,12 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
     cityData: Reactive<CityFetchData>
   }
 
+  interface Emit {
+    (e: 'delete', cityId: string): void;
+  }
+
   defineProps<Props>();
+  const emit = defineEmits<Emit>();
 
   const { formatToWeekdayTime } = useDateFormatter()
   const selectedTempType = ref<TempType>(TempType.Celsius)
@@ -41,20 +46,33 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 
     <div v-else-if="cityData.data">
 
-      <v-tooltip
-        location="top"
-        text="Refresh"
-      >
-        <template #activator="{ props }">
-          <v-btn
-            v-bind="props"
-            class="refresh-button"
-            icon="mdi-refresh"
-            @click="cityData.refetch()"
-          />
-        </template>
-      </v-tooltip>
+      <div class="card-actions">
+        <v-tooltip
+          location="top"
+          text="Refresh"
+        >
+          <template #activator="{ props }">
+            <v-btn
+              v-bind="props"
+              icon="mdi-refresh"
+              @click="cityData.refetch()"
+            />
+          </template>
+        </v-tooltip>
 
+        <v-tooltip
+          location="top"
+          text="Delete"
+        >
+          <template #activator="{ props }">
+            <v-btn
+              v-bind="props"
+              icon="mdi-trash-can"
+              @click="emit('delete', cityData.id)"
+            />
+          </template>
+        </v-tooltip>
+      </div>
 
       <div
         class="title-container"
@@ -250,10 +268,10 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
   border-radius: 24px;
 }
 
-.refresh-button {
+.card-actions {
+  display: flex;
+  column-gap: 15px;
   position: absolute;
   right: 20px;
 }
-
-
 </style>
