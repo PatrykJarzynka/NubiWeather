@@ -20,6 +20,7 @@ export function useCityWeather() {
       isLoading: isLoading,
       error: error,
       data: forecast,
+      refetch: () => fetchForecastByCity(cityName)
     });
 
     cities.value.push(city);

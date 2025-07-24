@@ -12,6 +12,7 @@ const myTheme = {
   colors: {
     accent: '#0075d1',
     background: '#F2FAFC',
+    errorLight: '#f8a0a7',
   },
 }
 

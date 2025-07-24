@@ -7,5 +7,6 @@ export interface CityFetchData {
   name: string;
   isLoading: Ref<boolean>;
   error: Ref<string | null>;
-  data: Ref<ForecastWeatherResponse | null>
+  data: Ref<ForecastWeatherResponse | null>;
+  refetch(): Promise<void>
 }

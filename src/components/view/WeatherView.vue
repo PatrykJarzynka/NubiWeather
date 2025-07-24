@@ -3,7 +3,7 @@
   import { onMounted } from 'vue';
   import { useCityWeather } from '@/composables/useCityWeather.ts';
 
-  const initialCityNames = ['Gliwice', 'Hamburg'];
+  const initialCityNames = ['Gliwice', '...'];
   const { addCity, cities } = useCityWeather();
 
   onMounted(async () => {

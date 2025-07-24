@@ -9,24 +9,53 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
     cityData: Reactive<CityFetchData>
   }
 
-  const { formatToWeekdayTime } = useDateFormatter()
-
   defineProps<Props>();
 
+  const { formatToWeekdayTime } = useDateFormatter()
   const selectedTempType = ref<TempType>(TempType.Celsius)
 </script>
 
 <template>
   <v-card class="weather-card-container">
 
-    <v-skeleton-loader type="card" v-if="cityData.isLoading"/>
+    <v-skeleton-loader
+      v-if="cityData.isLoading"
+      type="card"
+    />
 
-    <div v-else-if="cityData.error">
-      <v-card-title>Failed to fetch weather data</v-card-title>
-      <v-btn>Try again</v-btn>
+    <div
+      v-else-if="cityData.error"
+      class="error-container"
+    >
+      <v-card-title>
+        Failed to fetch weather data for {{cityData.name}}
+      </v-card-title>
+
+      <v-btn
+        @click="cityData.refetch()"
+        variant="plain"
+      >
+        Try again
+      </v-btn>
     </div>
 
     <div v-else-if="cityData.data">
+
+      <v-tooltip
+        location="top"
+        text="Refresh"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            v-bind="props"
+            class="refresh-button"
+            icon="mdi-refresh"
+            @click="cityData.refetch()"
+          />
+        </template>
+      </v-tooltip>
+
+
       <div
         class="title-container"
       >
@@ -108,6 +137,7 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
   padding: 20px;
   border-radius: 24px;
   background-color: rgb(var(--v-theme-background));
+  height: 100%;
 }
 
 .title-container {
@@ -207,6 +237,22 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 .forecast-row {
   flex-wrap: nowrap;
   overflow: auto;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: rgb(var(--v-theme-errorLight));
+  border-radius: 24px;
+}
+
+.refresh-button {
+  position: absolute;
+  right: 20px;
 }
 
 
