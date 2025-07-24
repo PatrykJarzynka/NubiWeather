@@ -2,11 +2,11 @@ import moment from 'moment'
 
 function useDateFormatter() {
 
-  function formatToWeekdayTime(date: string):string {
+  function formatToWeekdayTime(date: string): string {
     return moment(date).format('dddd, HH:mm');
   }
 
-  function formatToShortWeekdayDay(date: string):string {
+  function formatToShortWeekdayDay(date: string): string {
     return moment(date, 'YYYY-MM-DD').format('ddd DD')
   }
 

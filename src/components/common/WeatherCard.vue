@@ -66,9 +66,11 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 
       <v-divider style="opacity: 1"/>
 
-      <v-row>
+      <v-row class="forecast-row">
         <v-col
           cols="4"
+          sm="3"
+          md="2"
           v-for="forecastItem in forecastData.forecast.forecastday"
         >
           <ForecastCard
@@ -175,6 +177,11 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
   @media only screen and (width >= 960px) {
     font-size: 0.9rem;
   }
+}
+
+.forecast-row {
+  flex-wrap: nowrap;
+  overflow: auto;
 }
 
 

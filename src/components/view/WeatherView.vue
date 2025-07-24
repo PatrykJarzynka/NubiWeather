@@ -11,11 +11,11 @@
   <v-container>
     <v-row
       no-gutters
-      class="w-100 h-100"
+      class="w-100 h-100 ga-10"
     >
       <v-col
         cols="12"
-        xl="6"
+        xl="5"
         v-for="item in weatherData"
       >
         <WeatherCard :forecast-data="item"/>
