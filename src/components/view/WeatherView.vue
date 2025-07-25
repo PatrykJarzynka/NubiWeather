@@ -25,11 +25,10 @@
         inputError.value = 'City is already on the list';
       } else {
         addCity(inputValue.value);
+        inputValue.value = '';
       }
     }
   }
-
-
 </script>
 
 <template>
