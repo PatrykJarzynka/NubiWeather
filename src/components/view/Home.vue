@@ -1,6 +1,6 @@
 <script setup lang="ts">
   interface Emits {
-    (e: 'proceed'): void
+    (e: 'proceed'): void;
   }
 
   const emit = defineEmits<Emits>()

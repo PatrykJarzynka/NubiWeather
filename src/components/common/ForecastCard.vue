@@ -4,8 +4,8 @@
   import useDateFormatter from '@/composables/useDateFormatter.ts';
 
   interface Props {
-    forecastData: ForecastDay
-    tempType: TempType
+    forecastData: ForecastDay;
+    tempType: TempType;
   }
 
   const { formatToShortWeekdayDay } = useDateFormatter()

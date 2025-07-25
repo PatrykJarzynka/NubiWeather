@@ -6,7 +6,7 @@ import useDateFormatter from '@/composables/useDateFormatter.ts';
 import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 
   interface Props {
-    cityData: Reactive<CityFetchData>
+    cityData: Reactive<CityFetchData>;
   }
 
   interface Emit {

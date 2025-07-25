@@ -12,8 +12,8 @@ interface LocationData {
 }
 
 interface CurrentData extends WeatherData {
-  last_updated_epoch: number,
-  last_updated: string,
+  last_updated_epoch: number;
+  last_updated: string;
 }
 
 export interface CurrentWeatherResponse {
