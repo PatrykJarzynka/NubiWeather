@@ -7,9 +7,12 @@
   const { addCity, cities } = useCityWeather();
 
   const inputValue = ref<string | null>(null);
+  const inputError = ref<string | null>(null);
 
-  onMounted(async () => {
-    initialCityNames.map(name => addCity(name));
+  onMounted(() => {
+    initialCityNames.forEach((cityName) => {
+      addCity(cityName);
+    })
   })
 
   function onDelete(cityId: string) {
@@ -18,7 +21,11 @@
 
   function onAddCity(): void {
     if (inputValue.value) {
-      addCity(inputValue.value);
+      if (cities.value.find((city) => city.name.toLowerCase() === inputValue.value?.toLowerCase())) {
+        inputError.value = 'City is already on the list';
+      } else {
+        addCity(inputValue.value);
+      }
     }
   }
 
@@ -26,15 +33,17 @@
 </script>
 
 <template>
-  <v-container>
+  <v-container class="d-flex flex-column align-center">
     <v-row
       no-gutters
-      class="d-flex align-center pb-6 ga-6"
+      class="actions-container"
     >
       <v-text-field
-        hide-details
-        label="City name"
+        :error-messages="inputError"
+        label="City"
+        placeholder="Enter city name that you would like to see"
         v-model="inputValue"
+        @keydown.enter="onAddCity"
       />
 
       <v-btn
@@ -64,5 +73,17 @@
 </template>
 
 <style scoped lang="scss">
+
+.actions-container {
+  display: flex;
+  column-gap: 1.25rem;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 1.25rem;
+
+  @media only screen and (width >= 1920px) {
+    width: 50%;
+  }
+}
 
 </style>

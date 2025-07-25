@@ -82,7 +82,7 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
         </v-card-title>
 
         <v-card-subtitle class="date">
-          {{formatToWeekdayTime(cityData.data.location.localtime)}}
+          {{formatToWeekdayTime(cityData.data.current.last_updated)}}
         </v-card-subtitle>
       </div>
 
@@ -152,8 +152,8 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 <style scoped lang="scss">
 
 .weather-card-container {
-  padding: 20px;
-  border-radius: 24px;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
   background-color: rgb(var(--v-theme-background));
   height: 100%;
 }
@@ -163,15 +163,16 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
   flex-direction: column;
   align-items: center;
   padding: 0;
-  column-gap: 15px;
+  column-gap: 0.938rem;
 
   @media only screen and (width >= 600px) {
     width: fit-content;
-    text-align: left;
+    align-items: flex-start;
   }
 
   @media only screen and (width >= 960px) {
     flex-direction: row;
+    align-items: center;
   }
 }
 
@@ -189,7 +190,7 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 .temperature-column {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
 
   @media only screen and (width >= 600px) {
     justify-content: flex-start;
@@ -260,18 +261,23 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
 .error-container {
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 0.938rem;
   justify-content: center;
   align-items: center;
   height: 100%;
   background-color: rgb(var(--v-theme-errorLight));
-  border-radius: 24px;
+  border-radius: 1.5rem;
 }
 
 .card-actions {
   display: flex;
-  column-gap: 15px;
-  position: absolute;
-  right: 20px;
+  justify-content: space-between;
+
+  @media only screen and (width >= 600px) {
+    column-gap: 0.938rem;
+    position: absolute;
+    right: 1.25rem;
+  }
+
 }
-</style>
+</style> asd

@@ -41,16 +41,16 @@
   display: grid;
   grid-template-rows: 1fr auto 1fr;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.75rem;
 
   @media only screen and (width >= 600px) {
-    grid-template-rows: 1fr 80px 1fr;
+    grid-template-rows: 1fr 5rem 1fr;
   }
 }
 
 .title {
   font-size: 0.8rem;
-  padding: 8px 0 0 0;
+  padding: 0.5rem 0 0 0;
   white-space: normal;
 
   @media only screen and (width >= 600px) {
