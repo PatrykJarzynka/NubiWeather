@@ -32,16 +32,26 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
       v-else-if="cityData.error"
       class="error-container"
     >
-      <v-card-title>
-        Failed to fetch weather data for {{cityData.name}}
+      <v-card-title class="w-100">
+        <p class="error-text">Failed to fetch weather data for {{cityData.name}}</p>
       </v-card-title>
 
-      <v-btn
-        @click="cityData.refetch()"
-        variant="plain"
-      >
-        Try again
-      </v-btn>
+      <v-card-actions class="w-100 justify-center">
+
+        <v-btn
+          @click="cityData.refetch()"
+          variant="plain"
+        >
+          Try again
+        </v-btn>
+
+        <v-btn
+          @click="emit('delete', cityData.id)"
+          variant="plain"
+        >
+          Delete
+        </v-btn>
+      </v-card-actions>
     </div>
 
     <div v-else-if="cityData.data">
@@ -278,6 +288,14 @@ import { CityFetchData } from '@/interfaces/CityFetchData.ts';
     position: absolute;
     right: 1.25rem;
   }
+}
 
+.error-text {
+  text-wrap: wrap;
+  font-size: 18px;
+
+  @media only screen and (width >= 1280px) {
+    font-size: 23px;
+  }
 }
 </style> asd

@@ -25,7 +25,8 @@
         inputError.value = 'City is already on the list';
       } else {
         addCity(inputValue.value);
-        inputValue.value = '';
+        inputValue.value = null;
+        inputError.value = null;
       }
     }
   }
@@ -76,7 +77,7 @@
 .actions-container {
   display: flex;
   column-gap: 1.25rem;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   padding-bottom: 1.25rem;
 

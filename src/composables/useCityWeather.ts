@@ -22,7 +22,7 @@ export function useCityWeather() {
 
   const addCity = async (cityName: string): Promise<void> => {
     const city = createCityObject(cityName);
-    cities.value.push(city);
+    cities.value.unshift(city);
     await city.refetch()
   }
 
